@@ -1,17 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState } from 'react';
-
-const useInput = initialValue => {
-  const [value, setValue] = useState(initialValue);
-  const onChange = event => {
-    console.log(event.target);
-  };
-  return { value, onChange};
-}
+import { useInput } from './useinput';
+import React from 'react';
 
 function App() {
-  const name = useInput("Mr.");
+  const maxLen = value => value.length <= 15;
+  const name = useInput("Mr.", maxLen);
   return (
     <div className="App">
     <h1>Hello</h1>
