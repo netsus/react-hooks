@@ -1,14 +1,27 @@
-import { useInput } from './useinput';
 import React, { useEffect, useRef, useState } from 'react';
 
+const useClick = (onClick) => {
+  const element = useRef();
+  useEffect(() => {
+    if(element.current){
+      element.current.addEventListener("click", onClick);
+    }
+    return () => {
+      if(element.current){
+        element.current.removeEventListener("click", onClick);
+      }
+    }
+    },[])
+    
+    return typeof onClick === "function" ? element : undefined;
+  };
 
 const App = () => {
-  const tomato = useRef();
-  setTimeout(() => tomato.current?.focus(), 2000);
+  const sayHello = () => console.log("say hello");
+  const title = useClick(sayHello);
   return (
     <div className="App">
-      <div>Hi</div>
-      <input ref={tomato} placeholder="union" />
+      <h1 ref={title}>Hi</h1>
     </div>
   );
 }
